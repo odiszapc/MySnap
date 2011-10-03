@@ -1,0 +1,47 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "FTPFileUploader", "FTPFileUploader.vcxproj", "{5D8C6AA7-1350-4A2C-8CBE-604E32929E37}"
+	ProjectSection(ProjectDependencies) = postProject
+		{B061776A-8960-4205-9691-A9A5722AEFB0} = {B061776A-8960-4205-9691-A9A5722AEFB0}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ImagesHackFileUploader", "ImagesHackFileUploader.vcxproj", "{B061776A-8960-4205-9691-A9A5722AEFB0}"
+	ProjectSection(ProjectDependencies) = postProject
+		{31C8F45B-F126-498D-A2B9-30A613F67C17} = {31C8F45B-F126-498D-A2B9-30A613F67C17}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "RadikalFileUploader", "RadikalFileUploader.vcxproj", "{31C8F45B-F126-498D-A2B9-30A613F67C17}"
+	ProjectSection(ProjectDependencies) = postProject
+		{04D79C41-6CED-4E47-A213-79DF97FC1225} = {04D79C41-6CED-4E47-A213-79DF97FC1225}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "YandexPhotoFileUploader", "YandexPhotoFileUploader.vcxproj", "{04D79C41-6CED-4E47-A213-79DF97FC1225}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5D8C6AA7-1350-4A2C-8CBE-604E32929E37}.Debug|Win32.ActiveCfg = Debug|Win32
+		{5D8C6AA7-1350-4A2C-8CBE-604E32929E37}.Debug|Win32.Build.0 = Debug|Win32
+		{5D8C6AA7-1350-4A2C-8CBE-604E32929E37}.Release|Win32.ActiveCfg = Release|Win32
+		{5D8C6AA7-1350-4A2C-8CBE-604E32929E37}.Release|Win32.Build.0 = Release|Win32
+		{B061776A-8960-4205-9691-A9A5722AEFB0}.Debug|Win32.ActiveCfg = Debug|Win32
+		{B061776A-8960-4205-9691-A9A5722AEFB0}.Debug|Win32.Build.0 = Debug|Win32
+		{B061776A-8960-4205-9691-A9A5722AEFB0}.Release|Win32.ActiveCfg = Release|Win32
+		{B061776A-8960-4205-9691-A9A5722AEFB0}.Release|Win32.Build.0 = Release|Win32
+		{31C8F45B-F126-498D-A2B9-30A613F67C17}.Debug|Win32.ActiveCfg = Debug|Win32
+		{31C8F45B-F126-498D-A2B9-30A613F67C17}.Debug|Win32.Build.0 = Debug|Win32
+		{31C8F45B-F126-498D-A2B9-30A613F67C17}.Release|Win32.ActiveCfg = Release|Win32
+		{31C8F45B-F126-498D-A2B9-30A613F67C17}.Release|Win32.Build.0 = Release|Win32
+		{04D79C41-6CED-4E47-A213-79DF97FC1225}.Debug|Win32.ActiveCfg = Debug|Win32
+		{04D79C41-6CED-4E47-A213-79DF97FC1225}.Debug|Win32.Build.0 = Debug|Win32
+		{04D79C41-6CED-4E47-A213-79DF97FC1225}.Release|Win32.ActiveCfg = Release|Win32
+		{04D79C41-6CED-4E47-A213-79DF97FC1225}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

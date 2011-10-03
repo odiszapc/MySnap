@@ -1,0 +1,38 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "KeyHook", "KeyHook.vcxproj", "{F8D8FDB4-B1F6-498B-824C-1A9B85606839}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "KeyHookHandler", "KeyHookHandler.vcxproj", "{2E784C4E-374B-49CF-AA97-007E7FA2E1BF}"
+	ProjectSection(ProjectDependencies) = postProject
+		{E9B7F49D-4AD6-48BF-9A6B-7BC1E603C73A} = {E9B7F49D-4AD6-48BF-9A6B-7BC1E603C73A}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "KeyHookDLL", "KeyHookDLL.vcxproj", "{E9B7F49D-4AD6-48BF-9A6B-7BC1E603C73A}"
+	ProjectSection(ProjectDependencies) = postProject
+		{F8D8FDB4-B1F6-498B-824C-1A9B85606839} = {F8D8FDB4-B1F6-498B-824C-1A9B85606839}
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F8D8FDB4-B1F6-498B-824C-1A9B85606839}.Debug|Win32.ActiveCfg = Debug|Win32
+		{F8D8FDB4-B1F6-498B-824C-1A9B85606839}.Debug|Win32.Build.0 = Debug|Win32
+		{F8D8FDB4-B1F6-498B-824C-1A9B85606839}.Release|Win32.ActiveCfg = Release|Win32
+		{F8D8FDB4-B1F6-498B-824C-1A9B85606839}.Release|Win32.Build.0 = Release|Win32
+		{2E784C4E-374B-49CF-AA97-007E7FA2E1BF}.Debug|Win32.ActiveCfg = Debug|Win32
+		{2E784C4E-374B-49CF-AA97-007E7FA2E1BF}.Debug|Win32.Build.0 = Debug|Win32
+		{2E784C4E-374B-49CF-AA97-007E7FA2E1BF}.Release|Win32.ActiveCfg = Release|Win32
+		{2E784C4E-374B-49CF-AA97-007E7FA2E1BF}.Release|Win32.Build.0 = Release|Win32
+		{E9B7F49D-4AD6-48BF-9A6B-7BC1E603C73A}.Debug|Win32.ActiveCfg = Debug|Win32
+		{E9B7F49D-4AD6-48BF-9A6B-7BC1E603C73A}.Debug|Win32.Build.0 = Debug|Win32
+		{E9B7F49D-4AD6-48BF-9A6B-7BC1E603C73A}.Release|Win32.ActiveCfg = Release|Win32
+		{E9B7F49D-4AD6-48BF-9A6B-7BC1E603C73A}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
