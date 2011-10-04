@@ -12,9 +12,11 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\source\ScreenProcessing\ScreenWindow\ScreenWindow.cpp" />
+    <ClCompile Include="..\..\source\ScreenProcessing\ScreenWindow\Window.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\source\ScreenProcessing\ScreenWindow\ScreenWindow.h" />
+    <ClInclude Include="..\..\source\ScreenProcessing\ScreenWindow\Window.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{C6E47D58-1EC8-4E84-93E0-22EB7A5F922A}</ProjectGuid>

@@ -1,26 +1,56 @@
-#ifndef _KWND_H
-#define _KWND_H
+// win.h
+#pragma once
+class Window
+{
+	// Draw event
+	virtual void OnDraw(HDC hDC)
+	{
+	}
 
-#include <windows.h>
+	// Key down event
+	virtual void OnKeyDown(WPARAM wParam, LPARAM lParam)
+	{
+	}
 
-class KWnd {
+	// On close query event
+	virtual int OnClose(void)
+	{
+		return 0;
+	}
+
+	// Standart window proc
+	virtual LRESULT WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
+
+	static LRESULT CALLBACK WindowProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
+	virtual void GetWndClassEx(WNDCLASSEX & wc);
 
 public:
-	KWnd(LPCTSTR windowName, HINSTANCE hInst, int cmdShow,
-		LRESULT (WINAPI *pWndProc)(HWND, UINT, WPARAM, LPARAM),
-		LPCTSTR menuName = NULL,
-		int x = CW_USEDEFAULT, int y = 0,
-		int width = CW_USEDEFAULT, int height = 0,
-		UINT classStyle = CS_HREDRAW | CS_VREDRAW,
-		DWORD windowStyle = WS_OVERLAPPEDWINDOW,
-		HWND hParent = NULL);
 
-	HWND GetHWnd() { return hWnd; }
+	HWND m_hWnd;
+	
+	Window(void)
+	{
+		m_hWnd = NULL;
+	}
 
-protected:
-	HWND hWnd;
-	WNDCLASSEX wc;
+	virtual ~Window(void)
+	{
+	}
+
+	virtual bool CreateEx(DWORD dwExStyle, LPCTSTR lpszClass, LPCTSTR lpszName, DWORD dwStyle,
+		int x, int y, int nWidth, int nHeight, HWND hParent, HMENU hMenu, HINSTANCE hInst);
+
+	bool RegisterClass(LPCTSTR lpszClass, HINSTANCE hInst);
+
+	virtual WPARAM MessageLoop(void);
+
+	BOOL ShowWindow(int nCmdShow) const
+	{
+		return ::ShowWindow(m_hWnd, nCmdShow);
+	}
+
+	BOOL UpdateWindow(void) const
+	{
+		return ::UpdateWindow(m_hWnd);
+	}
 };
-
-#endif // _KWND_H
-

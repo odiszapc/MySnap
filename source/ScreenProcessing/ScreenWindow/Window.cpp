@@ -1,46 +1,125 @@
-#include "KWnd.h"
+// win.cpp
+#define STRICT
+#define WIN32_LEAN_AND_MEAN
 
-KWnd::KWnd(LPCTSTR windowName, HINSTANCE hInst, int cmdShow,
-		LRESULT (WINAPI *pWndProc)(HWND, UINT, WPARAM, LPARAM),
-		LPCTSTR menuName, int x, int y, int width, int height,
-		UINT classStyle, DWORD windowStyle, HWND hParent) {
+#include <windows.h>
+#include <assert.h>
+#include <tchar.h>
+#include "Window.h"
 
-	char szClassName[] = "KWndClass";
+LRESULT Window::WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
+{
 
-	wc.cbSize = sizeof(wc);
-	wc.style = classStyle;
-	wc.lpfnWndProc = pWndProc;
-	wc.cbClsExtra = 0;
-	wc.cbWndExtra = 0;
-	wc.hInstance = hInst;
-	wc.hIcon = LoadIcon(NULL, IDI_APPLICATION);
-	wc.hCursor = LoadCursor(NULL, IDC_ARROW);
-	wc.hbrBackground = (HBRUSH)GetStockObject(WHITE_BRUSH);
-	wc.lpszMenuName = menuName;
-	wc.lpszClassName = szClassName;
-	wc.hIconSm = LoadIcon(NULL, IDI_APPLICATION);
+	HDC hdc;
+	switch (uMsg)
+	{
+	case WM_KEYDOWN:
+		OnKeyDown(wParam, lParam);
+		return 0;
 
-	//Register window class
-	if (!RegisterClassEx(&wc)) {
-		char msg[100] = "Cannot register class";
-		strcat(msg, szClassName);
-		MessageBox(NULL, msg, "Error", MB_OK);
-		return;
+	case WM_PAINT:
+		PAINTSTRUCT ps;
+		hdc = BeginPaint(m_hWnd, &ps);
+		OnDraw(hdc);
+		EndPaint(m_hWnd, &ps);
+		return 0;
+
+	case WM_ERASEBKGND:
+		return 1;
+		
+
+	case WM_CLOSE:
+		return OnClose();
+		break;
+
+	case WM_DESTROY:
+		PostQuitMessage(0);
+		return 0;
 	}
 
-	//Create application main window
-	hWnd = CreateWindow(
-		szClassName, windowName, windowStyle,
-		x, y, width, height, hParent, (HMENU)NULL,
-		hInst, NULL);
+	return DefWindowProc(hWnd, uMsg, wParam, lParam);
+}
 
-	if (!hWnd) {
-		char text[100] = "CannotCreateWindow";
-		strcat(text, windowName);
-		MessageBox(NULL, text, "Error", MB_OK);
-		return;
+LRESULT CALLBACK Window::WindowProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
+{
+	Window* pWindow;
+
+	if ( uMsg == WM_NCCREATE )
+	{
+		assert( ! IsBadReadPtr((void *) lParam, sizeof(CREATESTRUCT)) );
+		MDICREATESTRUCT * pMDIC = (MDICREATESTRUCT *) ((LPCREATESTRUCT) lParam)->lpCreateParams;
+		pWindow = (Window *) (pMDIC->lParam);
+
+		assert( ! IsBadReadPtr(pWindow, sizeof(Window)) );
+		SetWindowLong(hWnd, GWL_USERDATA, (LONG) pWindow);
+	}
+	else
+		pWindow = (Window *)GetWindowLong(hWnd, GWL_USERDATA);
+
+	if ( pWindow )
+		return pWindow->WndProc(hWnd, uMsg, wParam, lParam);
+}
+
+
+bool Window::RegisterClass(LPCTSTR lpszClass, HINSTANCE hInst)
+{
+	WNDCLASSEX wc;
+	if ( ! GetClassInfoEx(hInst, lpszClass, &wc) )
+	{
+		GetWndClassEx(wc);
+
+		wc.hInstance = hInst;
+		wc.lpszClassName = lpszClass;
+
+		if ( ! RegisterClassEx(&wc) )
+			return false;
 	}
 
-	ShowWindow(hWnd, cmdShow);
+	return true;
+}
 
+bool Window::CreateEx(DWORD dwExStyle, LPCTSTR lpszClass, LPCTSTR lpszName, DWORD dwStyle,
+		int x, int y, int nWidth, int nHeight, HWND hParent, HMENU hMenu, HINSTANCE hInst)
+{
+	if ( ! RegisterClass(lpszClass, hInst) )
+		return false;
+
+	// use MDICREATESTRUCT for child MDI windows support
+	MDICREATESTRUCT mdic;
+	memset(& mdic, 0, sizeof(mdic));
+	mdic.lParam = (LPARAM) this;
+
+	m_hWnd = CreateWindowEx(dwExStyle, lpszClass, lpszName, dwStyle, x, y, nWidth, nHeight, hParent, hMenu, hInst, & mdic );
+
+	return m_hWnd != NULL;
+}
+
+void Window::GetWndClassEx(WNDCLASSEX & wc)
+{
+	memset(& wc, 0, sizeof(wc));
+	wc.cbSize			= sizeof(WNDCLASSEX);
+	wc.style			= 0;
+	wc.lpfnWndProc		= WindowProc;
+	wc.cbClsExtra		= 0;
+	wc.cbWndExtra		= 0;
+	wc.hInstance		= NULL;
+	wc.hIcon			= NULL;
+	wc.hCursor			= LoadCursor(NULL, IDC_ARROW);
+	wc.hbrBackground	= (HBRUSH)GetStockObject(BLACK_BRUSH);
+	wc.lpszMenuName		= NULL;
+	wc.lpszClassName	= NULL;
+	wc.hIconSm			= NULL;
+}
+
+WPARAM Window::MessageLoop(void)
+{
+	MSG msg;
+
+	while ( GetMessage(&msg, NULL, 0, 0) )
+	{
+		TranslateMessage(&msg);
+		DispatchMessage(&msg);
+	}
+
+	return msg.wParam;
 }
