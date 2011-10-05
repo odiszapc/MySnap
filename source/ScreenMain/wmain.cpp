@@ -3,6 +3,7 @@
 #include "../ScreenProcessing/ScreenWindow/ScreenWindow.h"
 #include "../ScreenProcessing/ScreenDump/ScreenDump.h"
 #include "../KeyHooks/KeyHookHandler/KeyHookHandler.h"
+#include "../KeyHooks/KeyHook/KeyHook.h"
 
 int CALLBACK WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
 {
@@ -15,8 +16,11 @@ int CALLBACK WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 	// Create a key handler controller instance
 	KeyHookHandler* pHandler = new KeyHookHandler(pDumper);
 
-	// This method in this place for test only. It will be invoked form KeyHook class
-	pHandler->OnPrintScreen();
+	// Create main hook class instance
+	KeyHook *pKeyHook = new KeyHook(pHandler);
+
+	// Start hooking
+	pKeyHook->KeyHookInstall();
 
 	return pWnd->MessageLoop();
 }
