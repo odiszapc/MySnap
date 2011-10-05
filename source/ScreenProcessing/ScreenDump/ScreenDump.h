@@ -2,7 +2,7 @@
 
 #include "../ScreenWindow/ScreenWindow.h"
 
-struct sBoundary
+struct Boundary
 {
 	int nX;
 	int nY;
@@ -12,16 +12,22 @@ struct sBoundary
 
 class ScreenDump
 {
-	ScreenWindow*	pWnd;
-	HBITMAP			hFullScreenCopy;
+	ScreenWindow *pWnd;
+
+	HBITMAP			hFullScreenCopyOriginal,
+					hFullScreenCopyFaded;
+
+	HDC				hFullScreenCopyDC;
+
 	RECT			rVirualDesktopRect;
 
-	sBoundary CalculateVirtualScreenSize(void);
+	Boundary CalculateVirtualScreenSize(void);
 	
 public:
 	ScreenDump(ScreenWindow*);
 	~ScreenDump(void);
 
 	void Prepare(void);
+	void ScreenDump::MakeScreenCopy(void);
 };
 

@@ -20,18 +20,16 @@ ScreenWindow::~ScreenWindow(void)
 
 void ScreenWindow::OnDraw(HDC hDC)
 {
-	RECT clientRect;
-	HRGN bgRgn;
-
 	SetBkMode(hDC, TRANSPARENT);
 
-	GetClientRect(this->m_hWnd, &clientRect);
-	bgRgn = CreateRectRgnIndirect(&clientRect);
+	HDC tmpDC = CreateCompatibleDC(hDC);
+	HBITMAP hOriginal = (HBITMAP)SelectObject(tmpDC, *(this->hBackground));
 
-	HBRUSH hBrush = CreateSolidBrush(RGB(200,200,200));
-	FillRgn(hDC, bgRgn, hBrush);
+	RECT rect;
+	GetClientRect(this->m_hWnd, &rect);
 
-	DeleteObject(hBrush);
+	BitBlt(hDC, 0, 0, rect.right, rect.bottom, 
+               tmpDC, 0, 0, SRCCOPY);
 }
 
 void ScreenWindow::OnKeyDown(WPARAM wParam, LPARAM lParam)
@@ -40,6 +38,7 @@ void ScreenWindow::OnKeyDown(WPARAM wParam, LPARAM lParam)
 	{
 	case VK_ESCAPE:
 		this->ShowWindow(SW_HIDE);
+		PostQuitMessage(0);
 		break;
 
 	}

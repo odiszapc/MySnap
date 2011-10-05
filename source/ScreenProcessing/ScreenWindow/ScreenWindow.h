@@ -2,6 +2,7 @@
 
 #include <windows.h>
 #include "Window.h"
+//#include "../ScreenDump/ScreenDump.h"
 
 
 
@@ -9,6 +10,9 @@ class ScreenWindow : public Window
 {
 
 public:
+
+	HBITMAP	*hBackground;
+
 	ScreenWindow(void);
 	~ScreenWindow(void);
 
