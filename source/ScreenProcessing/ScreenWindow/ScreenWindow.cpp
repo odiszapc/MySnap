@@ -38,7 +38,6 @@ void ScreenWindow::OnKeyDown(WPARAM wParam, LPARAM lParam)
 	{
 	case VK_ESCAPE:
 		this->ShowWindow(SW_HIDE);
-		PostQuitMessage(0);
 		break;
 
 	}
