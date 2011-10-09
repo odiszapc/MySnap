@@ -27,9 +27,8 @@ LRESULT Window::WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 	case WM_ERASEBKGND:
 		return 1;
 		
-
 	case WM_CLOSE:
-		return OnClose();
+		return OnCloseQuery();
 		break;
 
 	case WM_DESTROY:

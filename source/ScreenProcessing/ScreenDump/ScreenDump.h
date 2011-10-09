@@ -20,6 +20,7 @@ class ScreenDump
 	HDC				hFullScreenCopyDC;
 
 	RECT			rVirualDesktopRect;
+	BOOL			bRunning;
 
 	Boundary CalculateVirtualScreenSize(void);
 	
@@ -29,5 +30,10 @@ public:
 
 	void Prepare(void);
 	void ScreenDump::MakeScreenCopy(void);
+	void OnScreenWindowClosed(void);
+	void OnAfterDrawing(void);
+
+	bool IsRunning(void);
+
 };
 

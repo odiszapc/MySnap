@@ -13,7 +13,7 @@ class Window
 	}
 
 	// On close query event
-	virtual int OnClose(void)
+	virtual int OnCloseQuery(void)
 	{
 		return 0;
 	}

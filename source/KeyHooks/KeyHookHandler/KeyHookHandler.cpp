@@ -13,6 +13,10 @@ KeyHookHandler::~KeyHookHandler(void)
 BOOL KeyHookHandler::OnPrintScreen(void)
 {
 	// Ok, let's show a shadowed copy of desktop
-	this->pDumper->Prepare();
+	if ( ! this->pDumper->IsRunning())
+	{
+		this->pDumper->Prepare();
+	}
+
 	return true;
 }
