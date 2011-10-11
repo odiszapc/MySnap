@@ -22,5 +22,13 @@ int CALLBACK WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 	// Start hooking
 	pKeyHook->KeyHookInstall();
 
+	// Example
+	bool result;
+	result = pKeyHook->SetKeyCallback(EKEYS::KEY_PRTSCR, &KeyHookHandler::OnPrintScreen, false);
+	result = pKeyHook->SetKeyCallback(EKEYS::KEY_PRTSCR | EKEYS::KEY_PRTSCR_CONTROL, &KeyHookHandler::OnPrintScreen, false);
+	result = pKeyHook->SetKeyCallback(EKEYS::KEY_PRTSCR | EKEYS::KEY_PRTSCR_CONTROL, &KeyHookHandler::OnPrintScreen, true);
+	result = pKeyHook->SetKeyCallback(EKEYS::KEY_PRTSCR_MENU | EKEYS::KEY_PRTSCR_SHIFT | EKEYS::KEY_PRTSCR_CONTROL,
+		&KeyHookHandler::OnPrintScreen, true);
+
 	return pWnd->MessageLoop();
 }
